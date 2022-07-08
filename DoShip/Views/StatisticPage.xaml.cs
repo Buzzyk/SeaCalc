@@ -1,6 +1,4 @@
-﻿using DoShip.Models;
-using DoShip.Models.Cannons;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,30 +13,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
+// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace DoShip
+namespace DoShip.Views
 {
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class StatisticPage : Page
     {
-        public MainPage()
+        public StatisticPage()
         {
             this.InitializeComponent();
-        }
-
-        private void txt_button_Click(object sender, RoutedEventArgs e)
-        {
-            Cannon cannon = new TierTwoCannon("das", 1);
-            if (cannon.GetType() == typeof(TierOneCannon))
-            {
-                tst_text.Text = "yes";
-            } else
-            {
-                tst_text.Text = "No";
-            }
         }
     }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoShip.Models.Cannons
+namespace DoShip.ViewModels
 {
-    internal class TierThreeCannon
+    internal class MainPageViewModel : ViewModelBase
     {
-        private int _eliteAmmunitionBonusPercent;
+
     }
 }

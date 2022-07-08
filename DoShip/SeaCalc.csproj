@@ -119,22 +119,32 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Models\Buff.cs" />
+    <Compile Include="Models\Calculator.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Cannon.cs" />
-    <Compile Include="Models\Cannons\Cannon.cs" />
-    <Compile Include="Models\Cannons\RepairCannon.cs" />
-    <Compile Include="Models\Cannons\TierOneCannon.cs" />
-    <Compile Include="Models\Cannons\TierThreeCannon.cs" />
-    <Compile Include="Models\Cannons\TierTwoCannon.cs" />
     <Compile Include="Models\Paramaters\CannonRange.cs" />
     <Compile Include="Models\Paramaters\CannonReloadTime.cs" />
+    <Compile Include="Models\Paramaters\HitProbability.cs" />
     <Compile Include="Models\Paramaters\Parameter.cs" />
-    <Compile Include="Models\ShipFactory.cs" />
+    <Compile Include="Models\CannonFactory.cs" />
     <Compile Include="Models\Ship.cs" />
     <Compile Include="Models\ShipItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\MyShipPage.xaml.cs">
+      <DependentUpon>MyShipPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatisticPage.xaml.cs">
+      <DependentUpon>StatisticPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TargetShipPage.xaml.cs">
+      <DependentUpon>TargetShipPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -142,6 +152,17 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Cannons\Admiral.png" />
+    <Content Include="Assets\Cannons\Bastion.png" />
+    <Content Include="Assets\Cannons\Devastator.png" />
+    <Content Include="Assets\Cannons\Doomhammer.png" />
+    <Content Include="Assets\Cannons\Firestorm.png" />
+    <Content Include="Assets\Cannons\Overlord.png" />
+    <Content Include="Assets\Cannons\Painbringer.png" />
+    <Content Include="Assets\Cannons\Rift.png" />
+    <Content Include="Assets\Cannons\Voodoo.png" />
+    <Content Include="Assets\Cannons\Worldbreaker.png" />
+    <Content Include="Assets\Skills\Damage Maker.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -156,18 +177,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MyShipPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatisticPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TargetShipPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.7.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Cannons\" />
+    <Folder Include="Assets\ActionItems\" />
+    <Folder Include="Assets\Buffs\" />
+    <Folder Include="Assets\Castles\" />
+    <Folder Include="Assets\Crew\" />
+    <Folder Include="Assets\Gems\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

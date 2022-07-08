@@ -11,22 +11,24 @@ namespace DoShip.Models
     {
         private string _name;
         private int _level;
+        private string _image;
         private List<Parameter> _parameters;
+        private int _amount;
+        
 
         public List<Parameter> Parameters { get; set; }
-
-        public string Name { get; }
+        public string Name { get; set; }
         public int Level { get;  }
-        public ShipItem(string name, int level)
+        public int Amount { get; set; }
+        public virtual string Image { get; }
+
+        //TODO: fix LSP (enums with childs)
+        public ShipItem(string name, int level, int amount, List<Parameter> parameters)
         {
             Name = name;
             Level = level;
-            Parameters = new List<Parameter>();
-        }
-
-        protected void SetParameters(List<Parameter> parameters)
-        {
             Parameters = parameters;
+            Amount = amount;
         }
     }
 }

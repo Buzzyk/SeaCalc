@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DoShip.Commands
 {
-    internal class Command : ICommand
+    internal abstract class Command : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter)
+        public virtual bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        public void Execute(object parameter)
+        public abstract void Execute(object parameter);
+
+        protected void OnCanExecuteChange()
         {
-            throw new NotImplementedException();
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
+
+
+
+
 }

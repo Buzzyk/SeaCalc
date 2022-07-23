@@ -1,4 +1,5 @@
 ﻿using DoShip.Models;
+using DoShip.ViewModels;
 using DoShip.Views;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
@@ -28,6 +31,11 @@ namespace DoShip
     public sealed partial class MainPage : Page
     {
         public Ship Ship;
+        public MainPageViewModel MainPageViewModel;
+        public MainStatsViewModel StatsViewModel;
+        public bool isOpen = false; // DELETE?
+        public SplitViewDisplayMode isPinned = SplitViewDisplayMode.Overlay;
+        private NavigationTransitionInfo _transitionInfo = null;
 
         public MainPage()
         {
@@ -56,6 +64,9 @@ namespace DoShip
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             titleBar.ButtonForegroundColor = Colors.WhiteSmoke;
+
+            MainPageViewModel = new MainPageViewModel(this);
+            StatsViewModel = new MainStatsViewModel();
         }
 
         private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
@@ -131,7 +142,7 @@ namespace DoShip
         {
             if (args.IsSettingsInvoked)
             {
-                //rootFrame.Navigate(typeof(SettingsPage));
+                rootFrame.Navigate(typeof(SettingsView), null, new DrillInNavigationTransitionInfo());
             }
             else if (args.InvokedItemContainer != null)
             {
@@ -144,15 +155,22 @@ namespace DoShip
         private void navView_Navigate(Microsoft.UI.Xaml.Controls.NavigationViewItem item)
         {
             string[] withoutHeader = { "SeaPage", "HomePage" };
-            NavView.AlwaysShowHeader = !withoutHeader.Contains(item.Tag);
+            //NavView.AlwaysShowHeader = !withoutHeader.Contains(item.Tag);
+            //NavView.Header = item.Tag;
 
             switch (item.Tag)
             {
+                case "Home":
+                    rootFrame.Navigate(typeof(HomeView), null, new DrillInNavigationTransitionInfo());
+                    MainPageViewModel.Header = "Home";
+                    break;
                 case "MyShip":
-                    rootFrame.Navigate(typeof(MyShipPage));
+                    rootFrame.Navigate(typeof(MyShipPage), null, new DrillInNavigationTransitionInfo());
+                    MainPageViewModel.Header = "My ship";
                     break;
                 case "Statistic":
-                    rootFrame.Navigate(typeof(StatisticPage));
+                    rootFrame.Navigate(typeof(StatisticPage), null, new DrillInNavigationTransitionInfo());
+                    MainPageViewModel.Header = "Statistic";
                     break;
                 default:
                     break;
@@ -169,21 +187,33 @@ namespace DoShip
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (swithTheme.IsChecked == true)
-            {
-                this.RequestedTheme = ElementTheme.Dark;
-            }
-            else
-            {
-                this.RequestedTheme = ElementTheme.Light;
-            }
+            this.RequestedTheme = this.RequestedTheme == ElementTheme.Dark ? ElementTheme.Light : ElementTheme.Dark;
+        }
+
+        public void OpenMenu()
+        {
+        }
+
+        public void CloseMenu()
+        {
+        }
+
+        public void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _transitionInfo = new DrillInNavigationTransitionInfo();
+            menuFrame.Navigate(typeof(MainStatsPage), this, _transitionInfo);
+        }
+
+        public void GoBack()
+        {
+            menuFrame.Navigate(typeof(MainStatsPage), this, _transitionInfo);
+        }
+
+        public void GoForward()
+        {
+            menuFrame.Navigate(typeof(AdditionalInfoPage), this, _transitionInfo);
         }
     }
 }

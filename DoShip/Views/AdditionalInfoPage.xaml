@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="DoShip.Views.AdditionalInfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DoShip.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:my="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Padding="5">
+            <Button Click="Button_Click" Background="Transparent" BorderThickness="0">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0D3;"/>
+            </Button>
+            <TextBlock Text="Indo" HorizontalAlignment="Center" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+        </Grid>
+        <Grid HorizontalAlignment="Stretch" Height="190" Grid.Row="1" VerticalAlignment="Top">
+            <my:TreeView>
+                <my:TreeView.RootNodes>
+                    <my:TreeViewNode Content="Пушки">
+                        <my:TreeViewNode.Children>
+                            <my:TreeViewNode Content="Бастион, ур 0: 50%"/>
+                        </my:TreeViewNode.Children>
+                    </my:TreeViewNode>
+                    <my:TreeViewNode Content="Надстройки">
+                        <my:TreeViewNode.Children>
+                            <my:TreeViewNode Content="Бастион, ур 0: 50%"/>
+                        </my:TreeViewNode.Children>
+                    </my:TreeViewNode>
+                </my:TreeView.RootNodes>
+            </my:TreeView>
+        </Grid>
+
+    </Grid>
+</Page>

@@ -6,22 +6,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:DoShip.Models"
+    xmlns:viewModels="using:DoShip.ViewModels"
     xmlns:my="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    my:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    my:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    Loaded="Page_Loaded">
     <Page.Resources>
         <!--This top margin is the height of the custom TitleBar-->
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
     </Page.Resources>
-    <Grid>
-        <Grid   IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="34"
-                Canvas.ZIndex="1" 
-                Margin="0, -1,140,0">
 
-            <Grid x:Name="AppTitleBar" Margin="48, 0, 0, 0" Background="Transparent">
+    <Grid>
+        <Grid x:Name="AppTitleBar" Margin="48, 0, 0, 0" Background="Transparent" VerticalAlignment="Top">
                 <Border CornerRadius="{ThemeResource ControlCornerRadius}">
                     <Image x:Name="AppFontIcon"
                         HorizontalAlignment="Left" 
@@ -38,32 +34,7 @@
                            Style="{StaticResource CaptionTextBlockStyle}" />
 
             </Grid>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 40, 0">
-                <ToggleButton Height="34" Background="Transparent" BorderThickness="0" Margin="2, 0">
-                    <FontIcon FontFamily="Segoe MDL2 Assets"
-                          Glyph="&#xE840;"/>
-                </ToggleButton>
-                <Button Height="34" Background="Transparent" BorderThickness="0" Margin="2, 0" Command="{}">
-                    <FontIcon FontFamily="Segoe MDL2 Assets"
-                          Glyph="&#xE8A0;"/>
-                </Button>
-                <Button Height="34" Background="Transparent" BorderThickness="0" Margin="2, 0">
-                    <FontIcon FontFamily="Segoe MDL2 Assets"
-                          Glyph="&#xE712;"/>
-                    <Button.Flyout>
-                        <MenuFlyout Placement="Bottom">
-                            <MenuFlyoutItem Text="Reset"/>
-                            <MenuFlyoutSeparator/>
-                            <ToggleMenuFlyoutItem Text="Repeat" IsChecked="True"/>
-                            <ToggleMenuFlyoutItem Text="Shuffle" IsChecked="True"/>
-                        </MenuFlyout>
-                    </Button.Flyout>
-                </Button>
-                <AppBarSeparator/>
-            </StackPanel>            
-            
-        </Grid>
+       
         <my:NavigationView x:Name="NavView"
                            IsTitleBarAutoPaddingEnabled="True" 
                            IsBackEnabled="False"                
@@ -75,6 +46,11 @@
                            PaneDisplayMode="Auto"
                            AlwaysShowHeader="True">
             <my:NavigationView.MenuItems>
+                <my:NavigationViewItem Content="Home" Icon="Home"
+                                       Tag="Home">
+                    
+                </my:NavigationViewItem>
+                <my:NavigationViewItemSeparator/>
                 <my:NavigationViewItem Content="Statistic"
                                        Tag="Statistic">
                     <my:NavigationViewItem.Icon>
@@ -106,228 +82,51 @@
                                   Glyph="&#xE793;"/>
                 </ToggleButton>
             </my:NavigationView.PaneFooter>
-
+            <my:NavigationView.Header>
+                <CommandBar>
+                    <CommandBar.Content>
+                        <TextBlock Text="{x:Bind MainPageViewModel.Header, Mode=OneWay}"/>
+                    </CommandBar.Content>
+                    <AppBarButton Label="{x:Bind MainPageViewModel.GlyphLable, Mode=OneWay}" Command="{x:Bind MainPageViewModel.OpenMenu, Mode=OneWay}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind MainPageViewModel.Glyph, Mode=TwoWay}"/>
+                    </AppBarButton>
+                    <AppBarButton Icon="UnPin" Label="Pin">
+                    </AppBarButton>
+                </CommandBar>
+            </my:NavigationView.Header>
             <Grid>
                 <SplitView x:Name="pan_stat"
                        PanePlacement="Right" 
-                       IsPaneOpen="True"
-                       DisplayMode="Inline"
+                       IsPaneOpen="{x:Bind MainPageViewModel.IsOpen, Mode=TwoWay}"
+                       DisplayMode="{x:Bind StatsViewModel.SplitViewDisplayMode, Mode=TwoWay}"
                        OpenPaneLength="400"
                        Grid.Row="1"
                        PaneBackground="Transparent">
-
                     <SplitView.Pane>
-                        <Grid>
-                            <Border
-                                CornerRadius="{ThemeResource ControlCornerRadius}"
-                                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                Margin="10, 7, 10, 10"
-                                Padding="10">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="40"/>
-                                    </Grid.RowDefinitions>                                   
-                                    <ScrollViewer>
-                                        <StackPanel>
-                                            <TextBlock Text="MAIN STATS"                                       
-                                                   HorizontalAlignment="Center"
-                                                   Style="{StaticResource SubtitleTextBlockStyle}"
-                                                   Margin="0, 0, 0, 10"/>
-                                            <TextBlock Text="General"                                       
-                                                   HorizontalAlignment="Center"
-                                                   Style="{StaticResource BaseTextBlockStyle}"/>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Weapon slot"
-                                           HorizontalAlignment="Left"/>
-                                                <Grid HorizontalAlignment="Right">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="100"/>
-                                                        <TextBlock Text="/"
-                                                   Margin="5, 0"/>
-                                                        <TextBlock Text="250"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Crew slot"
-                                                       HorizontalAlignment="Left"/>
-                                                <Grid HorizontalAlignment="Right">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="100"/>
-                                                        <TextBlock Text="/"
-                                                   Margin="5, 0"/>
-                                                        <TextBlock Text="250"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Extantion slot"
-                                           HorizontalAlignment="Left"/>
-                                                <Grid HorizontalAlignment="Right">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="100"/>
-                                                        <TextBlock Text="/"
-                                                   Margin="5, 0"/>
-                                                        <TextBlock Text="250"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                            </Grid>
-                                            <TextBlock Text="Attack"                                       
-                                       HorizontalAlignment="Center"
-                                       Style="{StaticResource BaseTextBlockStyle}"/>
-                                            <my:NavigationViewItemSeparator/>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Cannon damage"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Cannon reload time"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Cannon range"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Hit probability"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Hit probability (NPC)"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Critical hit damage"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Critical hit damage (with skill)"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Critical hit chance"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Negative effect chance"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <TextBlock Text="Defence"                                       
-                                       HorizontalAlignment="Center"
-                                       Style="{StaticResource BaseTextBlockStyle}"/>
-                                            <my:NavigationViewItemSeparator/>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Hitpoints"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="1'000'000"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Voodoo poits"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Ship speed"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Vision"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Armor"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Damage prevention"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Dodge chance"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Dodge chance (NPC)"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <TextBlock Text="Board"                                       
-                                       HorizontalAlignment="Center"
-                                       Style="{StaticResource BaseTextBlockStyle}"/>
-                                            <my:NavigationViewItemSeparator/>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Board bonus"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Board defence"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Board cap"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <Grid Padding="10, 2">
-                                                <TextBlock Text="Bounty bonus"
-                                           HorizontalAlignment="Left"/>
-                                                <TextBlock Text="10%"
-                                           HorizontalAlignment="Right"/>
-                                            </Grid>
-                                            <TextBlock Text="Economic"                                       
-                                       HorizontalAlignment="Center"
-                                       Style="{StaticResource BaseTextBlockStyle}"/>
-                                            <my:NavigationViewItemSeparator/>
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                    <Button Content="Recount"
-                                        Grid.Row="1"
-                                        HorizontalAlignment="Stretch"
-                                        Style="{StaticResource AccentButtonStyle}"
-                                        VerticalAlignment="Bottom"/>
-                                </Grid>
-                            </Border>
+                        <Grid BorderBrush="{ThemeResource FlipViewButtonBorderThemeBrush}"
+                              CornerRadius="{ThemeResource ControlCornerRadius}"
+                              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                              BorderThickness=".5"
+                              Margin="0 0 -3 0">
+                            
+                            <Frame x:Name="menuFrame">
+                                <Frame.ContentTransitions>
+                                    <TransitionCollection>
+                                        <NavigationThemeTransition  />
+                                    </TransitionCollection>
+                                </Frame.ContentTransitions>
+                            </Frame>
+
                         </Grid>
                     </SplitView.Pane>
 
-                    <Frame x:Name="rootFrame" Margin="10, 0, 0, 0"/>
+                    <Frame x:Name="rootFrame" Margin="50, 44, 50, 0">
+                        <Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <NavigationThemeTransition/>
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>
+                    </Frame>
                 </SplitView>
             </Grid>
         </my:NavigationView>

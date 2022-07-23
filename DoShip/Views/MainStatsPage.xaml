@@ -1,0 +1,248 @@
+﻿<Page xmlns:my="using:Microsoft.UI.Xaml.Controls" 
+    x:Class="DoShip.Views.MainStatsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DoShip.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Padding="5" >
+            <Button Background="Transparent" BorderThickness="0" Command="{x:Bind viewModel.PinMenu}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind viewModel.Glyph, Mode=OneWay}"/>
+            </Button>
+            <TextBlock Text="Main stats" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalAlignment="Center"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1">            
+            <ListView SelectionMode="Single" ItemClick="ListView_ItemClick" SelectionChanged="ListView_SelectionChanged">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel AreStickyGroupHeadersEnabled="True"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment"  Value="Stretch"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="MinHeight" Value="30"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <GridViewHeaderItem FontSize="14" HorizontalAlignment="Center">General</GridViewHeaderItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Weapon slot:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="100 / 250" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Crew slot:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="100 / 250" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Extantion slot:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="100 / 250" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <GridViewHeaderItem FontSize="14" HorizontalAlignment="Center">Attack</GridViewHeaderItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Cannon damage:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Cannon reload time:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Cannon range:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Hit probability:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Hit probability (NPC):" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Critical hit damage:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Critical hit chance:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Critical hit chance (with skill):" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Negative effect chance:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <GridViewHeaderItem FontSize="14" HorizontalAlignment="Center">Defence</GridViewHeaderItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Hitpoints" HorizontalAlignment="Left"/>
+                        <TextBlock Text="1'000'000" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Voodoo points" HorizontalAlignment="Left"/>
+                        <TextBlock Text="1'000'000" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Ship speed" HorizontalAlignment="Left"/>
+                        <TextBlock Text="1432" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Vision:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="50" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Armor" HorizontalAlignment="Left"/>
+                        <TextBlock Text="15%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Damage prevention:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Dodge chance" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Dodge chance (NPC)" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Negative effect prevention:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="10%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <GridViewHeaderItem FontSize="14" HorizontalAlignment="Center">Board</GridViewHeaderItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Board bonus" HorizontalAlignment="Left"/>
+                        <TextBlock Text="1'000'000" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Board defence:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="1'000'000" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Boadrd cap:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="50%" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10 0">
+                    <Grid VerticalAlignment="Center">
+                        <TextBlock Text="Bounty bonus:" HorizontalAlignment="Left"/>
+                        <TextBlock Text="50" HorizontalAlignment="Right"/>
+                    </Grid>
+                </ListViewItem>
+
+
+            </ListView>
+            <!--<my:TreeView>
+                <my:TreeView.RootNodes>
+                    <my:TreeViewNode Content="dasda">
+                        <my:TreeViewNode.Children>
+                            <my:TreeViewNode Content="Child"/>
+                        </my:TreeViewNode.Children>
+                    </my:TreeViewNode>
+                    <my:TreeViewNode Content="dasda">
+                        <my:TreeViewNode.Children>
+                            <my:TreeViewNode Content="Child"/>
+                        </my:TreeViewNode.Children>
+                    </my:TreeViewNode>
+                    <my:TreeViewNode Content="dasda">
+                        <my:TreeViewNode.Children>
+                            <my:TreeViewNode Content="Child"/>
+                        </my:TreeViewNode.Children>
+                    </my:TreeViewNode>
+                </my:TreeView.RootNodes>
+            </my:TreeView>-->
+        </ScrollViewer>
+        <Button Content="Recount" Grid.Row="2" HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}"
+                VerticalAlignment="Bottom" Margin="5"/>
+
+    </Grid>
+</Page>
